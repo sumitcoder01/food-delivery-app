@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# Foodie Dash - Food Delivery Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Foodie Dash is a full-stack web application for ordering food online. This project is built using the MERN stack, consisting of MongoDB, Express.js, React.js, and Node.js. It provides users with the ability to browse a variety of food items, add them to the cart, and place orders.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **User Authentication and Authorization**: Users can create accounts, log in, and enjoy a personalized experience.
+- **Browse by Category**: Food items are categorized for easy navigation.
+- **Add to Cart**: Users can add multiple food items to their cart before placing an order.
+- **Place and Track Orders**: Users can place orders and track their status.
+- **Admin Panel**: Admins have access to manage food items and categories.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend**: React.js, React Router, Context API
+- **Backend**: Node.js, Express.js, Mongoose (MongoDB)
+- **Authentication**: JSON Web Tokens (JWT)
+- **Styling**: CSS Modules
+- **Image Upload**: Open Source API
+- **Deployment**: Heroku (Backend), Netlify (Frontend)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js and npm should be installed on your machine.
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+git clone https://github.com/sumitcoder01/food-delivery-app.git
+cd food-delivery-app
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Install dependencies for the server:
 
-### `npm run eject`
+```bash
+cd backend
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. Install dependencies for the client:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+cd ../client
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Configuration
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Create an `.env` file in the `backend` directory with the following variables:
 
-## Learn More
+```
+PORT=your port address
+MONGO=your Mongo URI
+SECRET=your Secret Key
+ADMIN=Admin Id
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. Adjust the frontend API URL in `client/src/utils/api.js` if needed:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```javascript
+const API_URL = 'http://localhost:${procees.env.PORT}/api';
+```
 
-### Code Splitting
+### Running the Application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Start the server (from the `backend` directory):
 
-### Analyzing the Bundle Size
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. Start the client (from the `client` directory):
 
-### Making a Progressive Web App
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. Open your browser and go to `http://localhost:3000` to view the app.
 
-### Advanced Configuration
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Backend**: Deploy the Node.js server on a platform like Heroku.
+- **Frontend**: Deploy the React app on a platform like Netlify. Update the API URL in `client/src/utils/api.js` to the deployed backend URL.
 
-### Deployment
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
