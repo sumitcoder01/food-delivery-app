@@ -10,6 +10,7 @@ router.get('/fetchfoods', async (req, res) => {
   try {
     const foodItem = await FoodItem.find({});
     const foodCategory = await FoodCategory.find({});
+    console.log("Data fetched..");
     res.status(200).json({ success: true, food: [foodItem, foodCategory] });
   } catch (error) {
     console.error(error.message);

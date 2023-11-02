@@ -1,6 +1,9 @@
 import React from 'react'
 
-export default function Carousel() {
+export default function Carousel({filter,setFilter}) {
+    const handleOnChange = (e)=>{
+        setFilter(e.target.value);
+    }
     const imageUrls = [
         'https://source.unsplash.com/900x250/?sweets',
         'https://source.unsplash.com/900x250/?burger',
@@ -20,7 +23,7 @@ export default function Carousel() {
 
                 <div className="carousel-caption d-none d-md-block text-center" style={{zIndex:'10'}}>
                     <div className="container text-center w-50">
-                            <input type="text" className="form-control bg-dark text-white border border-success fst-italic" placeholder='Search' style={{boxShadow: 'none'}} />
+                            <input type="text" className="form-control bg-dark text-white border border-success fst-italic" value={filter} onChange={handleOnChange} style={{boxShadow: 'none'}} />
                     </div>
                 </div>
 

@@ -1,15 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Carousel from '../components/Carousel';
 import Item from '../components/Item';
-/*
-Query State 
-give to Both Crasoels and Item
-*/
+
 export default function Home() {
+  const [filter ,setFilter] = useState('');
   return (
     <div>
-      <Carousel/>
-      <Item/>
+      <Carousel filter={filter} setFilter={setFilter}/>
+      <Item filter={filter}/>
     </div>
   )
 }
