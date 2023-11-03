@@ -5,31 +5,28 @@ export default function Item({ filter }) {
     const host = "http://localhost:5000";
     const [foodItem, setFoodItem] = useState([]);
     const [foodCategory, setFoodCategory] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`${host}/api/food/fetchfoods`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
-                const data = await response.json();
-                if (data.success) {
-                    const [fetchedFoodItem, fetchedFoodCategory] = data.food;
-                    setFoodItem(fetchedFoodItem);
-                    setFoodCategory(fetchedFoodCategory);
-                    console.log("Data is received successfully");
-                }
-                else {
-                    console.log("Data is not received successfully");
-                }
-            } catch (error) {
-                console.log("Internal Server ", error);
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`${host}/api/food/fetchfoods`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const data = await response.json();
+            if (data.success) {
+                const [fetchedFoodItem, fetchedFoodCategory] = data.food;
+                setFoodItem(fetchedFoodItem);
+                setFoodCategory(fetchedFoodCategory);
             }
+            else {
+                console.log("Data is not received successfully");
+            }
+        } catch (error) {
+            console.log("Internal Server ", error);
         }
-
+    }
+    useEffect(() => {
         fetchData();
     }, []);
 

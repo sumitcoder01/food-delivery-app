@@ -1,12 +1,15 @@
-import React from "react";
-
+import React,{useState} from "react";
+import { useGlobalContext } from '../context/cart/CartState';
 
 
 export default function Card({food}) {
+    const {authenticated}= useGlobalContext()
+    const [size,setSize]=useState(0);
+    const [qty,setQty]=useState(1);
     const options= food.options[0];
-    const quantityOptions = [1, 2, 3, 4, 5, 6];
+    const quantityOptions =  Array.from(Array(6), (_, index) => index + 1);
     const sizeOptions = Object.keys(options);
-    const finalPrice = 5*parseInt(options[sizeOptions[0]]); 
+    const finalPrice = qty*parseInt(options[sizeOptions[size]]); 
     return (
         <div className="card bg-dark text-white fst-italic my-3 border border-success rounded" style={{ width: "20rem" }}>
             <div style={{ height: "198px" }} ><img src={food.img} className="card-img-top object-fit-fill" style={{ maxHeight: "198px" }} alt={food.name} /></div>
@@ -17,7 +20,7 @@ export default function Card({food}) {
                     {/* Quantity Dropdown */}
                     <div className="mx-1 d-flex flex-column align-items-center">
                         <label htmlFor="quantity" className="form-label text-white">Quantity</label>
-                        <select className="form-select bg-success text-white" id="quantity">
+                        <select className="form-select bg-success text-white" value={qty} onChange={(e)=>setQty(e.target.value)} id="quantity">
                             {quantityOptions.map(option => (
                                 <option key={option} value={option}>{option}</option>
                             ))}
@@ -27,9 +30,9 @@ export default function Card({food}) {
                     {/* Size Dropdown */}
                     <div className="mx-1 d-flex flex-column align-items-center">
                         <label htmlFor="size" className="form-label text-white">Size</label>
-                        <select className="form-select bg-success text-white" id="size">
-                            {sizeOptions.map(option => (
-                                <option key={option} value={option}>{option}</option>
+                        <select className="form-select bg-success text-white"   value={size} onChange={(e) => setSize(e.target.value)} id="size">
+                            {sizeOptions.map((option,index) => (
+                                <option key={option} value={index}>{option}</option>
                             ))}
                         </select>
                     </div>
@@ -42,7 +45,7 @@ export default function Card({food}) {
                 </div>
 
                 {/* Add To Cart Button */}
-                <button className="btn btn-success">Add To Cart</button>
+                <button disabled={!authenticated} className="btn btn-success">Add To Cart</button>
             </div>
         </div>
     );
