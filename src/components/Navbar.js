@@ -3,9 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { useGlobalContext } from '../context/cart/CartState';
 
 function Navbar() {
-  const {authenticated,updateAuthenicated} =useGlobalContext();
+  const {cart,authenticated,updateAuthenicated} =useGlobalContext();
 const handleOnLogout=(e)=>{
       localStorage.removeItem('authToken');
+      localStorage.removeItem('cart-data');
       updateAuthenicated();
  }
 
@@ -36,8 +37,8 @@ const handleOnLogout=(e)=>{
           <div className="navbar-nav ms-auto">
             {
               authenticated ? <>
-                <NavLink className="nav-link">
-                  <button className="btn btn-light text-success px-3">My Cart <span className="badge rounded-5 text-bg-danger">2</span></button>
+                <NavLink className="nav-link" to="/cart">
+                  <button className="btn btn-light text-success px-3">My Cart <span className="badge rounded-5 text-bg-danger">{cart.length}</span></button>
                 </NavLink>
                 <NavLink className="nav-link" >
                   <button className="btn btn-outline-light px-3" style={{

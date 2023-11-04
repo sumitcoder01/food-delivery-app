@@ -9,12 +9,12 @@ const OrderSchema = new Schema({
         type:String,
         required:true,
     },
-    qty:{
+    quantity:{
         type:Number,
         required:true,
     },
     size:{
-        type:Number,
+        type:String,
         required:true,
     },
     price:{

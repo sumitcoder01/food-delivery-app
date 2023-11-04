@@ -3,13 +3,25 @@ import { useGlobalContext } from '../context/cart/CartState';
 
 
 export default function Card({food}) {
-    const {authenticated}= useGlobalContext()
+    const {authenticated,addToCart}= useGlobalContext();
     const [size,setSize]=useState(0);
     const [qty,setQty]=useState(1);
     const options= food.options[0];
     const quantityOptions =  Array.from(Array(6), (_, index) => index + 1);
     const sizeOptions = Object.keys(options);
     const finalPrice = qty*parseInt(options[sizeOptions[size]]); 
+
+    const handleOnClick =()=>{
+        const item ={
+            id:food._id,
+            name:food.name,
+            quantity:parseInt(qty),
+            size:sizeOptions[size],
+            price:parseInt(finalPrice)
+        };
+        addToCart(item);
+    }
+
     return (
         <div className="card bg-dark text-white fst-italic my-3 border border-success rounded" style={{ width: "20rem" }}>
             <div style={{ height: "198px" }} ><img src={food.img} className="card-img-top object-fit-fill" style={{ maxHeight: "198px" }} alt={food.name} /></div>
@@ -45,7 +57,7 @@ export default function Card({food}) {
                 </div>
 
                 {/* Add To Cart Button */}
-                <button disabled={!authenticated} className="btn btn-success">Add To Cart</button>
+                <button disabled={!authenticated} onClick={handleOnClick} className="btn btn-success">Add To Cart</button>
             </div>
         </div>
     );

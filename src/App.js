@@ -5,6 +5,7 @@ import Login from './screens/Login';
 import Signup from './screens/Signup';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Cart from './components/Cart';
 
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
             <Route exact path="/" element={<Home/>}/>   
             <Route exact path="/login" element={<Login/>}/>   
             <Route exact path="/signup" element={<Signup/>}/>   
+            <Route exact path="/cart" element={<Cart/>}/>   
         </Routes>
        <Footer/>
     </Router>
