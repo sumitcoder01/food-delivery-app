@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 import { useGlobalContext } from '../context/cart/CartState';
 
 function Navbar() {
-  const {cart,authenticated,updateAuthenicated} =useGlobalContext();
+  const {cart,clearCart,authenticated,updateAuthenicated} =useGlobalContext();
 const handleOnLogout=(e)=>{
       localStorage.removeItem('authToken');
-      localStorage.removeItem('cart-data');
+      clearCart();
       updateAuthenicated();
  }
 

@@ -56,7 +56,9 @@ const CartState = (props) => {
     if (!localStorage.getItem('authToken')) setAuthenticated(false);
     else setAuthenticated(true);
   }
-
+  const clearCart =()=>{
+    dispatch({ type: 'CHECK_OUT' });
+  }
   const addToCart = (food) => {
     for (let index = 0; index < cart.length; index++) {
       const item = cart[index];
@@ -81,7 +83,7 @@ const CartState = (props) => {
   }, []);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeCartItem, authenticated, updateAuthenicated, createOrders,userName,getUser }}>
+    <CartContext.Provider value={{ cart, addToCart, removeCartItem, authenticated, updateAuthenicated, createOrders,userName,getUser,clearCart }}>
       {props.children}
     </CartContext.Provider>
   )
