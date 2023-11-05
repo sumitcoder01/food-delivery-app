@@ -44,7 +44,7 @@ npm install
 3. Install dependencies for the client:
 
 ```bash
-cd ../client
+cd ../
 npm install
 ```
 

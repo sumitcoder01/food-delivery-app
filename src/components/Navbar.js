@@ -19,7 +19,7 @@ const handleOnLogout=(e)=>{
         <NavLink className="nav-link me-3" aria-current="page" to="/">
           Home
         </NavLink>
-        {authenticated && <NavLink className="nav-link me-3" to="/">
+        {authenticated && <NavLink className="nav-link me-3" to="/myorder">
           My Order
         </NavLink>}
         <button

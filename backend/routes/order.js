@@ -20,7 +20,7 @@ router.post('/createorders', fetchUser, async (req, res) => {
   try {
       const orders = req.body.orders;
       for (const order of orders) {
-          await Order.create({ user: req.user.id, name: order.name, quantity: order.quantity, size: order.size, price: order.price });
+          await Order.create({ user: req.user.id, name: order.name, quantity: order.quantity, size: order.size, price: order.price});
       }
       res.status(200).json({ success: true, message: "User orders were updated successfully" });
   } catch (error) {

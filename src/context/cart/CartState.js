@@ -8,6 +8,7 @@ const host = "http://localhost:5000";
 const CartState = (props) => {
   const [cart, dispatch] = useReducer(reducer, []);
   const [authenticated, setAuthenticated] = useState(false);
+  const [userName,setUserName] = useState('');
   const createOrders = async () => {
     try {
       const response = await fetch(`${host}/api/order/createorders`, {
@@ -29,28 +30,28 @@ const CartState = (props) => {
       console.log("Internal Server ", error);
     }
   }
-  
-  const getOrders = async () => {
-    try {
-      const response = await fetch(`${host}/api/order/fetchorders`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("authToken")
-        },
-        
-      });
-      const data = await response.json();
-      if (data.success) {
-        console.log('Get orders!',data.orders);
+      const getUser = async () => {
+        try {
+          const response = await fetch(`${host}/api/auth/getuser`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "auth-token": localStorage.getItem("authToken")
+            },
+            
+          });
+          const data = await response.json();
+          if (data.success) {
+            setUserName(data.user.name);
+          }
+          else {
+            console.log(data.error);
+          }
+        } catch (error) {
+          console.log("Internal Server ", error);
+        }
       }
-      else {
-        console.log(data.error);
-      }
-    } catch (error) {
-      console.log("Internal Server ", error);
-    }
-  }
+
   const updateAuthenicated = () => {
     if (!localStorage.getItem('authToken')) setAuthenticated(false);
     else setAuthenticated(true);
@@ -80,7 +81,7 @@ const CartState = (props) => {
   }, []);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeCartItem, authenticated, updateAuthenicated, createOrders }}>
+    <CartContext.Provider value={{ cart, addToCart, removeCartItem, authenticated, updateAuthenicated, createOrders,userName,getUser }}>
       {props.children}
     </CartContext.Provider>
   )
