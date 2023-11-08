@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useGlobalContext } from '../context/cart/CartState';
 
 function Navbar() {
-  const {cart,clearCart,authenticated,updateAuthenicated} =useGlobalContext();
+  const {cart,clearCart,authenticated,updateAuthenicated,admin} =useGlobalContext();
 const handleOnLogout=(e)=>{
       localStorage.removeItem('authToken');
       clearCart();
@@ -21,6 +21,9 @@ const handleOnLogout=(e)=>{
         </NavLink>
         {authenticated && <NavLink className="nav-link me-3" to="/myorder">
           My Order
+        </NavLink>}
+        {authenticated && admin && <NavLink className="nav-link me-3" to="/adminportal">
+          admin
         </NavLink>}
         <button
           className="navbar-toggler"

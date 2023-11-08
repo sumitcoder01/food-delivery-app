@@ -8,7 +8,10 @@ const host = "http://localhost:5000";
 const CartState = (props) => {
   const [cart, dispatch] = useReducer(reducer, []);
   const [authenticated, setAuthenticated] = useState(false);
-  const [userName,setUserName] = useState('');
+  const [userName, setUserName] = useState('');
+  const [orders, setOrders] = useState([]);
+  const [admin, setAdmin] = useState(false);
+
   const createOrders = async () => {
     try {
       const response = await fetch(`${host}/api/order/createorders`, {
@@ -30,33 +33,82 @@ const CartState = (props) => {
       console.log("Internal Server ", error);
     }
   }
-      const getUser = async () => {
-        try {
-          const response = await fetch(`${host}/api/auth/getuser`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "auth-token": localStorage.getItem("authToken")
-            },
-            
-          });
-          const data = await response.json();
-          if (data.success) {
-            setUserName(data.user.name);
-          }
-          else {
-            console.log(data.error);
-          }
-        } catch (error) {
-          console.log("Internal Server ", error);
-        }
-      }
+  const getUser = async () => {
+    try {
+      const response = await fetch(`${host}/api/auth/getuser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("authToken")
+        },
 
-  const updateAuthenicated = () => {
-    if (!localStorage.getItem('authToken')) setAuthenticated(false);
-    else setAuthenticated(true);
+      });
+      const data = await response.json();
+      if (data.success) {
+        setUserName(data.user.name);
+      }
+      else {
+        console.log(data.error);
+      }
+    } catch (error) {
+      console.log("Internal Server ", error);
+    }
   }
-  const clearCart =()=>{
+  const getAdmin = async () => {
+    try {
+      const response = await fetch(`${host}/api/auth/adminaccess`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("authToken")
+        },
+
+      });
+      const data = await response.json();
+      if (data.success) {
+         setAdmin(true);
+      }
+      else {
+        console.log(data.error);
+      }
+    } catch (error) {
+      console.log("Internal Server ", error);
+    }
+  }
+  const getOrders = async () => {
+    try {
+      const response = await fetch(`${host}/api/order/fetchorders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("authToken")
+        },
+
+      });
+      const data = await response.json();
+      if (data.success) {
+        setOrders([...data.orders].reverse());
+      }
+      else {
+        console.log(data.error);
+      }
+    } catch (error) {
+      console.log("Internal Server ", error);
+    }
+  }
+
+  const updateAuthenicated =() => {
+    if (!localStorage.getItem('authToken')) {
+      setAuthenticated(false);
+      setAdmin(false);
+    }
+    else {
+      setAuthenticated(true);
+      getAdmin();
+    }
+  }
+
+  const clearCart = () => {
     dispatch({ type: 'CHECK_OUT' });
   }
   const addToCart = (food) => {
@@ -83,7 +135,7 @@ const CartState = (props) => {
   }, []);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeCartItem, authenticated, updateAuthenicated, createOrders,userName,getUser,clearCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeCartItem, authenticated, updateAuthenicated, createOrders, userName, getUser, clearCart, getOrders, orders, admin }}>
       {props.children}
     </CartContext.Provider>
   )

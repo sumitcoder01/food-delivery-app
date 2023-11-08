@@ -1,34 +1,9 @@
-import { useState, useEffect } from 'react';
+import {useEffect } from 'react';
 import OrderCard from '../components/OrderCard';
 import { useGlobalContext } from '../context/cart/CartState';
 
 export default function MyOrder() {
-  const { userName, getUser } = useGlobalContext();
-  const host = "http://localhost:5000";
-  const [orders, setOrders] = useState([]);
-
-  const getOrders = async () => {
-    try {
-      const response = await fetch(`${host}/api/order/fetchorders`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("authToken")
-        },
-
-      });
-      const data = await response.json();
-      if (data.success) {
-        setOrders([...data.orders].reverse());
-      }
-      else {
-        console.log(data.error);
-      }
-    } catch (error) {
-      console.log("Internal Server ", error);
-    }
-  }
-
+  const { userName, getUser,getOrders,orders } = useGlobalContext();
 
 useEffect(() => {
         getOrders();

@@ -7,6 +7,7 @@ import Signup from './screens/Signup';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Cart from './screens/Cart';
+import AdminPortal from './screens/AdminPortal';
 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
             <Route exact path="/signup" element={<Signup/>}/>   
             <Route exact path="/cart" element={<Cart/>}/>   
             <Route exact path="/myorder" element={<MyOrder/>}/>   
+            <Route exact path="/adminportal" element={<AdminPortal/>}/>   
         </Routes>
        <Footer/>
     </Router>
