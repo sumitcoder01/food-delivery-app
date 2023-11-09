@@ -25,8 +25,8 @@ router.put('/addfood', async (req, res) => {
     if (!foodCategory) {
       await FoodCategory.create({ CategoryName: req.body.CategoryName });
     }
-    await FoodItem.create({ name: req.body.name, CategoryName: req.body.CategoryName, options: req.body.options, img: req.body.img, description: req.body.description });
-    res.status(200).json({ success: true, message: "Data Updated Successfully" });
+    const newFood= await FoodItem.create({ name: req.body.name, CategoryName: req.body.CategoryName, options: req.body.options, img: req.body.img, description: req.body.description });
+    res.status(200).json({ success: true, message: "Data Updated Successfully",id:newFood._id });
   } catch (error) {
     console.error(error.message);
     res.status(401).json({ success: false, error: "Internal Server Error!" });
@@ -38,8 +38,8 @@ router.put('/addfoodcategory', async (req, res) => {
   try {
     const foodCategory = await FoodCategory.findOne({ CategoryName: req.body.CategoryName });
     if (!foodCategory) {
-      await FoodCategory.create({ CategoryName: req.body.CategoryName });
-      res.status(200).json({ success: true, message: "Data Updated Successfully" });
+     const newCategory= await FoodCategory.create({ CategoryName: req.body.CategoryName });
+      res.status(200).json({ success: true, message: "Data Updated Successfully",id:newCategory._id });
     }
     else {
       res.status(200).json({ success: true, message: "Data already Exits" });
@@ -79,12 +79,11 @@ router.post('/updatefoodCategory/:id', async (req, res) => {
   try {
     const foodCategory = await FoodCategory.findById(req.params.id);
     if (foodCategory) {
-      const result = await FoodItem.updateMany(
+      await FoodItem.updateMany(
         { CategoryName: foodCategory.CategoryName },
         { $set: { CategoryName: req.body.CategoryName } }
       );
-      console.log(`${result.nModified} documents updated`);
-      const updatedItem = await FoodCategory.findByIdAndUpdate(req.params.id,{ CategoryName: req.body.CategoryName },{ new: true });
+      const updatedItem = await FoodCategory.findByIdAndUpdate(req.params.id, { CategoryName: req.body.CategoryName }, { new: true });
       if (updatedItem) {
         console.log("Data Updated Successfully");
         res.status(200).json({ success: true, message: "Data Updated Successfully" });
@@ -119,16 +118,11 @@ router.delete('/deletefoodcategory/:id', async (req, res) => {
   try {
     const foodcategory = await FoodCategory.findByIdAndDelete(req.params.id);
     if (foodcategory) {
-      console.log('Deleted food item:', foodcategory.CategoryName);
-      const deletedItems = await FoodItem.deleteMany({ CategoryName: req.body.CategoryName });
-      if (deletedItems.n > 0) {
-        console.log(`Deleted ${deletedItems.n} items with CategoryName ${req.body.CategoryName}`);
-      } else {
-        console.log('No items with CategoryName found to delete');
-      }
+      console.log('Deleted food Category:', foodcategory.CategoryName);
+      await FoodItem.deleteMany({ CategoryName: foodcategory.CategoryName });
       res.status(200).json({ success: true, message: 'Food Category deleted successfully' });
     } else {
-      res.status(404).json({ success: false, error: 'Food item not found' });
+      res.status(404).json({ success: false, error: 'Food Category not found' });
     }
   } catch (error) {
     console.error(error.message);
