@@ -26,6 +26,7 @@ export default function Item() {
         setItem(null);
     }
 
+
     const fetchData = async () => {
         try {
             const response = await fetch(`${host}/api/food/fetchfoods`, {
@@ -47,6 +48,12 @@ export default function Item() {
         }
     }
     const deleteFoodItem = async (id) => {
+        const confirmed = window.confirm("Are you sure you want to delete?");
+
+        if (!confirmed) {
+            return;
+        }
+
         try {
             const response = await fetch(`${host}/api/food/deletefoodItem/${id}`, {
                 method: "DELETE",
@@ -69,6 +76,11 @@ export default function Item() {
     }
 
     const deleteFoodCategory = async (id) => {
+        const confirmed = window.confirm("Are you sure you want to delete?");
+
+        if (!confirmed) {
+            return;
+        }
         try {
             const response = await fetch(`${host}/api/food/deletefoodcategory/${id}`, {
                 method: "DELETE",
