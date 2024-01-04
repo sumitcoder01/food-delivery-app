@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from "react-toastify";
 import {useNavigate} from "react-router-dom"
 import { useGlobalContext } from '../context/cart/CartState';
 export default function Signup() {
@@ -26,12 +27,17 @@ export default function Signup() {
       const res = await response.json();
       if (res.success) {
         localStorage.setItem('authToken', res.authToken);
+        toast.success("Signup Successful!");
         updateAuthenicated();
         navigate("/");
       }
-      else console.log("Server Error!");
+      else {
+        console.log("Server Error!");
+        toast.error("Authentication error!");
+      }
     } catch (error) {
       console.log("Internal Server ", error);
+      toast.error("Internal Server!");
     }
   }
   return (

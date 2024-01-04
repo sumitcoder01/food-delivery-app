@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from "react-toastify";
 import { NavLink } from 'react-router-dom';
 import { useGlobalContext } from '../context/cart/CartState';
 
@@ -7,6 +8,7 @@ function Navbar() {
 const handleOnLogout=(e)=>{
       localStorage.removeItem('authToken');
       clearCart();
+      toast.success("Logout Successfuly!");
       updateAuthenicated();
  }
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../context/cart/CartState';
 import Modal from '../modals/Modal';
@@ -41,6 +42,7 @@ export default function Item() {
                 setFoodItem(fetchedFoodItem);
                 setFoodCategory(fetchedFoodCategory);
             } else {
+                toast.error("Data is not received successfully");
                 console.log("Data is not received successfully");
             }
         } catch (error) {
@@ -66,8 +68,10 @@ export default function Item() {
             if (data.success) {
                 let newArray = foodItem.filter(element => element._id !== id);
                 setFoodItem(newArray);
+                toast.success(data.message);
                 console.log(data.message);
             } else {
+                toast.error("Data is not received successfully");
                 console.log("Data is not received successfully");
             }
         } catch (error) {
@@ -101,11 +105,14 @@ export default function Item() {
                 //Update Food Items--
                 newArray = foodItem.filter(element => element.CategoryName !== category);
                 setFoodItem(newArray);
+                toast.success(data.message);
                 console.log(data.message);
             } else {
+                toast.error("Data is not received successfully");
                 console.log("Data is not received successfully");
             }
         } catch (error) {
+            toast.error("Internal Server!");
             console.log("Internal Server ", error);
         }
     }
@@ -126,11 +133,14 @@ export default function Item() {
                     else newArray = [...newArray, element]
                 });
                 setFoodItem(newArray);
+                toast.success(data.message);
                 console.log(data.message);
             } else {
+                toast.error("Data is not received successfully");
                 console.log("Data is not received successfully");
             }
         } catch (error) {
+            toast.error("Internal Server!");
             console.log("Internal Server ", error);
         }
     }
@@ -147,11 +157,14 @@ export default function Item() {
             const data = await response.json();
             if (data.success) {
                 setFoodItem([...foodItem, { ...food, _id: data.id }]);
+                toast.success(data.message);
                 console.log(data.message);
             } else {
+                toast.error("Data is not received successfully");
                 console.log("Data is not received successfully");
             }
         } catch (error) {
+            toast.error("Internal Server!");
             console.log("Internal Server ", error);
         }
     }
@@ -186,11 +199,14 @@ export default function Item() {
                     newArray = [...newArray, element]
                 });
                 setFoodItem(newArray);
+                toast.success(data.message);
                 console.log(data.message);
             } else {
+                toast.error("Data is not received successfully");
                 console.log("Data is not received successfully");
             }
         } catch (error) {
+            toast.error("Internal Server!");
             console.log("Internal Server ", error);
         }
     }
@@ -207,11 +223,14 @@ export default function Item() {
             const data = await response.json();
             if (data.success) {
                 setFoodCategory([...foodCategory, { ...category, _id: data.id }]);
+                toast.success(data.message);
                 console.log(data.message);
             } else {
+                toast.error("Data is not received successfully");
                 console.log("Data is not received successfully");
             }
         } catch (error) {
+            toast.error("Internal Server!");
             console.log("Internal Server ", error);
         }
     }

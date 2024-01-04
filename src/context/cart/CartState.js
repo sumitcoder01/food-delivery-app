@@ -1,5 +1,6 @@
 import CartContext from "./cartContext";
 import { useState, useContext, useEffect, useReducer } from "react";
+import { toast } from "react-toastify";
 import reducer from '../../reducer/reducer';
 
 const useGlobalContext = () => useContext(CartContext);
@@ -25,11 +26,14 @@ const CartState = (props) => {
       const data = await response.json();
       if (data.success) {
         dispatch({ type: 'CHECK_OUT' });
+        toast.success("Order placed Successfuly!");
       }
       else {
+        toast.error(data.error);
         console.log(data.error);
       }
     } catch (error) {
+      toast.error("Internal Server");
       console.log("Internal Server ", error);
     }
   }
@@ -117,15 +121,18 @@ const CartState = (props) => {
       if (item.id === food.id && item.size === food.size) {
         //for UPDATE TO CARD
         dispatch({ type: 'UPDATE_TO_CART', index: index, quantity: food.quantity + item.quantity, price: food.price + item.price });
+        toast.success("Item added to cart successfully!");
         return;
       }
     }
     //for ADD TO CARD
     dispatch({ type: 'ADD_TO_CART', payload: food });
+    toast.success("Item added to cart successfully!");
   }
 
   const removeCartItem = (index) => {
     dispatch({ type: 'REMOVE_ITEM', index: index });
+    toast.success("Item removed from cart successfully!");
   }
 
   useEffect(() => {
