@@ -2,9 +2,10 @@ import CartContext from "./cartContext";
 import { useState, useContext, useEffect, useReducer } from "react";
 import { toast } from "react-toastify";
 import reducer from '../../reducer/reducer';
+import { HOST } from '../../constant/constant';
 
 const useGlobalContext = () => useContext(CartContext);
-const host = "http://localhost:5000";
+const host = HOST;
 
 const CartState = (props) => {
   const [cart, dispatch] = useReducer(reducer, []);
@@ -70,7 +71,7 @@ const CartState = (props) => {
       });
       const data = await response.json();
       if (data.success) {
-         setAdmin(true);
+        setAdmin(true);
       }
       else {
         console.log(data.error);
@@ -101,7 +102,7 @@ const CartState = (props) => {
     }
   }
 
-  const updateAuthenicated =() => {
+  const updateAuthenicated = () => {
     if (!localStorage.getItem('authToken')) {
       setAuthenticated(false);
       setAdmin(false);

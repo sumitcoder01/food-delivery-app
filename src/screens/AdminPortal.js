@@ -7,10 +7,10 @@ import AddFoodItem from '../components/AddFoodItem';
 import AddFoodCategory from '../components/AddFoodCategory';
 import UpdateFoodItem from '../components/UpdateFoodItem';
 import UpdateFoodCategory from '../components/UpdateFoodCategory';
-
+import { HOST } from '../constant/constant';
 
 export default function Item() {
-    const host = "http://localhost:5000";
+    const host = HOST;
     const { admin } = useGlobalContext();
     const navigate = useNavigate();
     const [foodItem, setFoodItem] = useState([]);

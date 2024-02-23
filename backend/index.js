@@ -8,7 +8,6 @@ try {
     console.log("Connect to Database  Successfully");
 } catch (error) {
     console.error(error.message);
-    res.status(500).send("Internal Server Error");
 }
 
 
@@ -29,5 +28,5 @@ app.use('/api/order', require('./routes/order'));
 
 //Listen App At port 5000
 app.listen(port, () => {
-    console.log(`FoodieDash backend listening at http://localhost:${port}`);
+    console.log(`FoodiesRice backend listening at ${port}`);
 })

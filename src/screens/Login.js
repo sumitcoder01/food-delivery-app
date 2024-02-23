@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { toast } from "react-toastify";
 import {useNavigate} from "react-router-dom"
 import { useGlobalContext } from '../context/cart/CartState';
+import {HOST} from '../constant/constant';
 export default function Login() {
   const {updateAuthenicated} =useGlobalContext();
   const navigate = useNavigate();
-  const host = "http://localhost:5000";
+  const host = HOST;
   const [formData,setFormData]=useState({
    email:'',
    password:''

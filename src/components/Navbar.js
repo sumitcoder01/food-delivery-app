@@ -16,7 +16,7 @@ const handleOnLogout=(e)=>{
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
       <div className="container-fluid">
         <NavLink className="navbar-brand me-5" to="/">
-          <span className="fw-bold fst-italic fs-3">FoodieDash</span>
+          <span className="fw-bold fst-italic fs-3">FoodiesRice</span>
         </NavLink>
         <NavLink className="nav-link me-3" aria-current="page" to="/">
           Home

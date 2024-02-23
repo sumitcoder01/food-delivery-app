@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { toast } from "react-toastify";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useGlobalContext } from '../context/cart/CartState';
+import { HOST } from '../constant/constant';
+
 export default function Signup() {
-  const {updateAuthenicated} =useGlobalContext();
+  const { updateAuthenicated } = useGlobalContext();
   const navigate = useNavigate();
-  const host = "http://localhost:5000";
+  const host = HOST;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -57,9 +59,9 @@ export default function Signup() {
           <input type="password" minLength={5} className="form-control bg-dark text-white border border-success fst-italilc" value={formData.password} onChange={handleOnChange} name='password' id="password" style={{ boxShadow: 'none' }} />
         </div>
         <div className="d-flex">
-             <button type="submit" className="btn btn-success mt-2">Submit</button>
-             <button onClick={()=>navigate("/login")} className="btn btn-danger mt-2 mx-3">Already Signup ?</button>
-          </div>
+          <button type="submit" className="btn btn-success mt-2">Submit</button>
+          <button onClick={() => navigate("/login")} className="btn btn-danger mt-2 mx-3">Already Signup ?</button>
+        </div>
       </form>
     </div>
   )
