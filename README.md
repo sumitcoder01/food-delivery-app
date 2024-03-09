@@ -1,6 +1,6 @@
-# Foodie Dash - Food Delivery Web App
+# Foodie Rice - Food Delivery Web App
 
-Foodie Dash is a full-stack web application for ordering food online. This project is built using the MERN stack, consisting of MongoDB, Express.js, React.js, and Node.js. It provides users with the ability to browse a variety of food items, add them to the cart, and place orders.
+Foodie Rice is a full-stack web application for ordering food online. This project is built using the MERN stack, consisting of MongoDB, Express.js, React, and Node.js. It provides users with the ability to browse a variety of food items, add them to the cart, and place orders.
 
 ## Features
 
@@ -12,12 +12,12 @@ Foodie Dash is a full-stack web application for ordering food online. This proje
 
 ## Technologies Used
 
-- **Frontend**: React.js, React Router, Context API
+- **Frontend**: React, React Router, Context API,Redux,React Toastify
 - **Backend**: Node.js, Express.js, Mongoose (MongoDB)
 - **Authentication**: JSON Web Tokens (JWT)
-- **Styling**: CSS Modules
+- **Styling**: CSS Modules,Bootstrap
 - **Image Upload**: Open Source API
-- **Deployment**: Heroku (Backend), Netlify (Frontend)
+- **Deployment**: Render (Backend), Netlify (Frontend)
 
 ## Getting Started
 
@@ -83,8 +83,8 @@ npm start
 
 ## Deployment
 
-- **Backend**: Deploy the Node.js server on a platform like Heroku.
-- **Frontend**: Deploy the React app on a platform like Netlify. Update the API URL in `client/src/utils/api.js` to the deployed backend URL.
+- **Backend**: Deploy the Node.js server on a platform like Render.
+- **Frontend**: Deploy the React app on a platform like Netlify. Update the API URL in `/src/constant/constant.js` to the deployed backend URL.
 
 ## Contributing
 
