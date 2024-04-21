@@ -24,7 +24,7 @@ export default function Card({food}) {
 
     return (
         <div className="card bg-dark text-white fst-italic my-3 border border-success rounded" style={{ width: "20rem" }}>
-            <div style={{ height: "198px" }} ><img src={food.img} className="card-img-top object-fit-fill" style={{ maxHeight: "198px" }} alt={food.name} /></div>
+            <div style={{ height: "198px" }} ><img loading="lazy" src={food.img} className="card-img-top object-fit-fill" style={{ maxHeight: "198px" }} alt={food.name} /></div>
             <div className="card-body text-center">
                 <h5 className="card-title">{food.name}</h5>
                 <div className="d-flex justify-content-center my-4">

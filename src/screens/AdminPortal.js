@@ -8,6 +8,7 @@ import AddFoodCategory from '../components/AddFoodCategory';
 import UpdateFoodItem from '../components/UpdateFoodItem';
 import UpdateFoodCategory from '../components/UpdateFoodCategory';
 import { HOST } from '../constant/constant';
+import AdminPortalSkeleton from '../components/skeleton/AdminPortalSkeleton';
 
 export default function Item() {
     const host = HOST;
@@ -17,6 +18,7 @@ export default function Item() {
     const [foodCategory, setFoodCategory] = useState([]);
     const [show, setShow] = useState(0);
     const [item, setItem] = useState(null);
+    const [loading, setLoading] = useState(true);
 
 
     const checkForAdmin = () => {
@@ -48,6 +50,7 @@ export default function Item() {
         } catch (error) {
             console.log("Internal Server ", error);
         }
+        setLoading(false);
     }
     const deleteFoodItem = async (id) => {
         const confirmed = window.confirm("Are you sure you want to delete?");
@@ -243,55 +246,59 @@ export default function Item() {
     }, []);
 
     return (
-        <div className="container mt-5 mb-3">
-            {show === 0 && <div className='d-flex justify-content-between my-2 '>
-                <button onClick={() => setShow(1)} className="btn btn-outline-light px-3">Add Food Item</button>
-                <button onClick={() => setShow(2)} className="btn btn-outline-light px-3">Add Food Category</button>
-            </div>}
-            {show === 1 && <Modal onClose={closeModal}><AddFoodItem addFoodItem={addFoodItem} onClose={closeModal} /></Modal>}
-            {show === 2 && <Modal onClose={closeModal}><AddFoodCategory addFoodCategory={addFoodCategory} onClose={closeModal} /></Modal>}
-            {show === 3 && <Modal onClose={closeModal}><UpdateFoodItem updateFoodItem={updateFoodItem} item={item} onClose={closeModal} /></Modal>}
-            {show === 4 && <Modal onClose={closeModal}><UpdateFoodCategory updateFoodCategory={updateFoodCategory} item={item} onClose={closeModal} /></Modal>}
-            <hr />
-            <div className='my-2 row d-flex flex-wrap'>
-                <h4>Food Category</h4>
-                <hr />
-                {
-                    foodCategory.map(category =>
-                        <div className="col-12 col-md-4 col-lg-3" key={category._id}>
-                            <div className="card bg-dark text-white fst-italic my-3 border border-success rounded" style={{ width: "15rem" }}>
-                                <div className="card-body">
-                                    <div className='my-2'>Category - {category.CategoryName}</div>
-                                    <div className="d-flex justify-content-between ">
-                                        <button onClick={() => { setShow(4); setItem(category) }} className="btn btn-success">Update</button>
-                                        <button onClick={() => deleteFoodCategory(category._id)} className="btn btn-danger">Delete</button>
+        <div>
+            {loading ? <AdminPortalSkeleton /> :
+                <div className="container mt-5 mb-3">
+                    {show === 0 && <div className='d-flex justify-content-between my-2 '>
+                        <button onClick={() => setShow(1)} className="btn btn-outline-light px-3">Add Food Item</button>
+                        <button onClick={() => setShow(2)} className="btn btn-outline-light px-3">Add Food Category</button>
+                    </div>}
+                    {show === 1 && <Modal onClose={closeModal}><AddFoodItem addFoodItem={addFoodItem} onClose={closeModal} /></Modal>}
+                    {show === 2 && <Modal onClose={closeModal}><AddFoodCategory addFoodCategory={addFoodCategory} onClose={closeModal} /></Modal>}
+                    {show === 3 && <Modal onClose={closeModal}><UpdateFoodItem updateFoodItem={updateFoodItem} item={item} onClose={closeModal} /></Modal>}
+                    {show === 4 && <Modal onClose={closeModal}><UpdateFoodCategory updateFoodCategory={updateFoodCategory} item={item} onClose={closeModal} /></Modal>}
+                    <hr />
+                    <div className='my-2 row d-flex flex-wrap'>
+                        <h4>Food Category</h4>
+                        <hr />
+                        {
+                            foodCategory.map(category =>
+                                <div className="col-12 col-md-4 col-lg-3" key={category._id}>
+                                    <div className="card bg-dark text-white fst-italic my-3 border border-success rounded" style={{ width: "15rem" }}>
+                                        <div className="card-body">
+                                            <div className='my-2'>Category - {category.CategoryName}</div>
+                                            <div className="d-flex justify-content-between ">
+                                                <button onClick={() => { setShow(4); setItem(category) }} className="btn btn-success">Update</button>
+                                                <button onClick={() => deleteFoodCategory(category._id)} className="btn btn-danger">Delete</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    )
-                }
-            </div>
-            <div className='my-2 row d-flex flex-wrap'>
-                <h4>Food Items</h4>
-                <hr />
-                {
-                    foodItem.map(food =>
-                        <div className="col-12 col-md-4 col-lg-3" key={food._id}>
-                            <div className="card bg-dark text-white fst-italic my-3 border border-success rounded" style={{ width: "15rem" }}>
-                                <div className="card-body">
-                                    <div className="card-title">Item- {food.name}</div>
-                                    <div className='my-2'>Category - {food.CategoryName}</div>
-                                    <div className="d-flex justify-content-between ">
-                                        <button onClick={() => { setShow(3); setItem(food) }} className="btn btn-success">Update</button>
-                                        <button onClick={() => deleteFoodItem(food._id)} className="btn btn-danger">Delete</button>
+                            )
+                        }
+                    </div>
+                    <div className='my-2 row d-flex flex-wrap'>
+                        <h4>Food Items</h4>
+                        <hr />
+                        {
+                            foodItem.map(food =>
+                                <div className="col-12 col-md-4 col-lg-3" key={food._id}>
+                                    <div className="card bg-dark text-white fst-italic my-3 border border-success rounded" style={{ width: "15rem" }}>
+                                        <div className="card-body">
+                                            <div className="card-title">Item- {food.name}</div>
+                                            <div className='my-2'>Category - {food.CategoryName}</div>
+                                            <div className="d-flex justify-content-between ">
+                                                <button onClick={() => { setShow(3); setItem(food) }} className="btn btn-success">Update</button>
+                                                <button onClick={() => deleteFoodItem(food._id)} className="btn btn-danger">Delete</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    )
-                }
-            </div>
+                            )
+                        }
+                    </div>
+                </div>
+            }
         </div>
     )
 }

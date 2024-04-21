@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import { HOST } from '../constant/constant';
+import ItemSkeleton from './skeleton/ItemSkeleton';
 
 export default function Item({ filter }) {
     const host = HOST;
     const [foodItem, setFoodItem] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [foodCategory, setFoodCategory] = useState([]);
     const fetchData = async () => {
         try {
@@ -26,15 +28,16 @@ export default function Item({ filter }) {
         } catch (error) {
             console.log("Internal Server ", error);
         }
+        setLoading(false);
     }
     useEffect(() => {
         fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <div className='my-2'>
-            {
+            {loading ? <ItemSkeleton /> :
                 foodCategory.map(category =>
                     <div key={category._id} className="my-3 mx-3">
                         <div className="h3 mb-4 ms-5">{category.CategoryName}</div>

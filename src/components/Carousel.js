@@ -16,7 +16,7 @@ export default function Carousel({filter,setFilter}) {
                 <div className="carousel-inner" style={{zIndex:'-10'}}>
                     {imageUrls.map((url, index) => (
                         <div className={`${index === 0 ? 'carousel-item active' : 'carousel-item'} overflow-y-hidden`} key={index}>
-                            <img src={url} className="w-100 object-fit-fill opacity-50"  alt={`Slide ${index + 1}`} />
+                            <img src={url} loading="lazy" className="w-100 object-fit-fill opacity-50"  alt={`Slide ${index + 1}`} />
                         </div>
                     ))}
                 </div>
