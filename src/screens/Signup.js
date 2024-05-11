@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom"
-import { useGlobalContext } from '../context/cart/CartState';
 import { HOST } from '../constant/constant';
+import { HypnosisLoader } from '../components/loaders/HypnosisLoader';
 
 export default function Signup() {
-  const { updateAuthenicated } = useGlobalContext();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const host = HOST;
   const [formData, setFormData] = useState({
@@ -18,6 +18,8 @@ export default function Signup() {
   }
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+    setLoading(true);
     try {
       const response = await fetch(`${host}/api/auth/createuser`, {
         method: "POST",
@@ -28,10 +30,8 @@ export default function Signup() {
       });
       const res = await response.json();
       if (res.success) {
-        localStorage.setItem('authToken', res.authToken);
         toast.success("Signup Successful!");
-        updateAuthenicated();
-        navigate("/");
+        navigate("/login");
       }
       else {
         console.log("Server Error!");
@@ -41,6 +41,7 @@ export default function Signup() {
       console.log("Internal Server ", error);
       toast.error("Internal Server!");
     }
+    setLoading(false);
   }
   return (
     <div className="container mt-5 mb-3" style={{ minHeight: '62vh' }}>
@@ -59,7 +60,7 @@ export default function Signup() {
           <input type="password" minLength={5} className="form-control bg-dark text-white border border-success fst-italilc" value={formData.password} onChange={handleOnChange} name='password' id="password" style={{ boxShadow: 'none' }} />
         </div>
         <div className="d-flex">
-          <button type="submit" className="btn btn-success mt-2">Submit</button>
+          <button type="submit" className="btn btn-success mt-2">{loading ? <HypnosisLoader /> : "Submit"}</button>
           <button onClick={() => navigate("/login")} className="btn btn-danger mt-2 mx-3">Already Signup ?</button>
         </div>
       </form>

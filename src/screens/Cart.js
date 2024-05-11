@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useGlobalContext } from '../context/cart/CartState';
+import { HypnosisLoader } from '../components/loaders/HypnosisLoader';
 
 
 export default function Cart() {
-  const {cart,removeCartItem,createOrders} =useGlobalContext();
+  const [loading, setLoading] = useState(false);
+  const { cart, removeCartItem, createOrders } = useGlobalContext();
   const finalPrice = cart.reduce((total, item) => total + item.price, 0);
-  if(cart.length===0) {
-      return(
-        <div className='d-flex mt-5 mb-3 justify-content-center align-items-center w-100' style={{minHeight:'62vh'}}>
-                 <div className='fs-3 text-success '>The Cart is Empty!</div>
-        </div>
-      )
+  if (cart.length === 0) {
+    return (
+      <div className='d-flex mt-5 mb-3 justify-content-center align-items-center w-100' style={{ minHeight: '62vh' }}>
+        <div className='fs-3 text-success '>The Cart is Empty!</div>
+      </div>
+    )
+  }
+
+  const handleCreateOrders = async () => {
+    if (loading) return;
+    setLoading(true);
+    await createOrders();
+    setLoading(false);
   }
 
   return (
@@ -35,7 +44,7 @@ export default function Cart() {
                 <td>{item.quantity}</td>
                 <td>{item.size}</td>
                 <td>{item.price}/-</td>
-                <td><button className="btn btn-danger" onClick={()=> removeCartItem(index)}>Delete</button></td>
+                <td><button className="btn btn-danger" onClick={() => removeCartItem(index)}>Delete</button></td>
               </tr>
             ))}
           </tbody>
@@ -43,7 +52,7 @@ export default function Cart() {
       </div>
       <div className="d-flex justify-content-between">
         <h5 className="text-success fs-4 fst-italic">Total: <span>{finalPrice}/-</span></h5>
-        <button className="btn btn-success" onClick={createOrders}>Checkout</button>
+        <button className="btn btn-success" onClick={handleCreateOrders}>{loading ? <HypnosisLoader /> : "Checkout"}</button>
       </div>
     </div>
   )
