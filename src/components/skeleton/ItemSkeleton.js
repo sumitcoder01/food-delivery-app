@@ -8,7 +8,7 @@ export default function ItemSkeleton() {
         <div className='my-2'>
             {foodCategories.map((category, index) => (
                 <div key={index} className="skeleton-category mb-4">
-                    <div className="h3 mb-4 ms-5" style={{ backgroundColor: "#f0f0f0", height: "30px" }}></div>
+                    <div className="h3 mb-4 ms-5 w-25 mx-auto" style={{ backgroundColor: "#353935", height: "18px" }}></div>
                     <hr />
                     <div className="row d-flex flex-wrap">
                         {[...Array(numItemsPerCategory)].map((_, itemIndex) => (

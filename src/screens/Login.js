@@ -4,7 +4,12 @@ import { useNavigate } from "react-router-dom"
 import { useGlobalContext } from '../context/cart/CartState';
 import { HOST } from '../constant/constant';
 import { HypnosisLoader } from '../components/loaders/HypnosisLoader';
+import { TogglePassword } from '../components/TogglePassword';
+import { EmailIcon } from '../components/icons/EmailIcon';
+import { PasswordIcon } from '../components/icons/PasswordIcon';
+
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const { updateAuthenicated } = useGlobalContext();
   const navigate = useNavigate();
@@ -49,13 +54,16 @@ export default function Login() {
     <div className="container mt-5 mb-3" style={{ minHeight: '62vh' }}>
       <form onSubmit={handleOnSubmit}>
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email address</label>
+          <label htmlFor="email" className="form-label d-flex align-items-center gap-1"><EmailIcon /><span>Email address</span></label>
           <input type="email" minLength={5} className="form-control bg-dark text-white border border-success fst-italic" value={formData.name} onChange={handleOnChange} id="email" name="email" aria-describedby="emailHelp" style={{ boxShadow: 'none' }} />
           <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input type="password" minLength={5} className="form-control bg-dark text-white border border-success fst-italilc" value={formData.name} onChange={handleOnChange} name='password' id="password" style={{ boxShadow: 'none' }} />
+          <label htmlFor="password" className="form-label d-flex align-items-center gap-1"><PasswordIcon /><span>Password</span> </label>
+          <div className='position-relative'>
+            <input type={showPassword ? "text" : "password"} minLength={5} className="form-control bg-dark text-white border border-success fst-italilc" value={formData.name} onChange={handleOnChange} name='password' id="password" style={{ boxShadow: 'none' }} />
+            <TogglePassword showPassword={showPassword} setShowPassword={setShowPassword} />
+          </div>
         </div>
         <div className="d-flex">
           <button type="submit" className="btn btn-success mt-2">{loading ? <HypnosisLoader /> : "Submit"}</button>

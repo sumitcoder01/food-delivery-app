@@ -4,7 +4,7 @@ const CategoryCardSkeleton = () => (
   <div className="col-12 col-md-4 col-lg-3">
     <div className="card bg-dark text-white fst-italic my-3 border border-success rounded" style={{ width: "15rem" }}>
       <div className="card-body">
-        <div className='my-2' style={{ backgroundColor: "#f0f0f0", height: "20px" }}></div>
+        <div className='my-2' style={{ backgroundColor: "#353935", height: "20px" }}></div>
         <div className="d-flex justify-content-between">
           <button className="btn btn-success" disabled style={{ width: "6rem" }}></button>
           <button className="btn btn-danger" disabled style={{ width: "6rem" }}></button>
@@ -18,8 +18,8 @@ const ItemCardSkeleton = () => (
   <div className="col-12 col-md-4 col-lg-3">
     <div className="card bg-dark text-white fst-italic my-3 border border-success rounded" style={{ width: "15rem" }}>
       <div className="card-body">
-        <div className="card-title" style={{ backgroundColor: "#f0f0f0", height: "20px" }}></div>
-        <div className='my-2' style={{ backgroundColor: "#f0f0f0", height: "20px" }}></div>
+        <div className="card-title" style={{ backgroundColor: "#353935", height: "20px" }}></div>
+        <div className='my-2' style={{ backgroundColor: "#353935", height: "20px" }}></div>
         <div className="d-flex justify-content-between">
           <button className="btn btn-success" disabled style={{ width: "6rem" }}></button>
           <button className="btn btn-danger" disabled style={{ width: "6rem" }}></button>
